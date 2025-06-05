@@ -1,0 +1,397 @@
+[p GLOBOPT AUTOSTATIC IEEE_DBL IEEE_FLT PIC14 PICREGULAR PICMID ]
+[d version 1.1 ]
+[d edition pro ]
+[d chip 16F873A ]
+[d frameptr 0 ]
+"5 C:\Program Files\Microchip\xc8\v3.00\pic\sources\c99\common\aldiv.c
+[v ___aldiv __aldiv `(l  1 e 4 0 ]
+"5 C:\Program Files\Microchip\xc8\v3.00\pic\sources\c99\common\atoi.c
+[v _atoi atoi `(i  1 e 2 0 ]
+"3 C:\Program Files\Microchip\xc8\v3.00\pic\sources\c99\common\memset.c
+[v _memset memset `(*.4v  1 e 1 0 ]
+"10 C:\Program Files\Microchip\xc8\v3.00\pic\sources\c99\common\sprcadd.c
+[v ___fladd __fladd `(d  1 e 4 0 ]
+"15 C:\Program Files\Microchip\xc8\v3.00\pic\sources\c99\common\Umul16.c
+[v ___wmul __wmul `(ui  1 e 2 0 ]
+"4 C:\Program Files\Microchip\xc8\v3.00\pic\sources\c99\common\Umul8_16.c
+[v __Umul8_16 _Umul8_16 `(ui  1 e 2 0 ]
+"6 C:\Program Files\Microchip\xc8\v3.00\pic\sources\c99\pic\__eeprom.c
+[v ___eecpymem __eecpymem `(v  1 e 1 0 ]
+"39
+[v ___memcpyee __memcpyee `(v  1 e 1 0 ]
+"6 D:\Practica-3.X\funciones.c
+[v _Buzzer_On Buzzer_On `(v  1 e 1 0 ]
+"16
+[v _USART_Init USART_Init `(v  1 e 1 0 ]
+"26
+[v _USART_Write USART_Write `(v  1 e 1 0 ]
+"31
+[v _ISR ISR `II(v  1 e 1 0 ]
+"58
+[v _enviarInformacion enviarInformacion `(v  1 e 1 0 ]
+"3 D:\Practica-3.X\kbd4x4.c
+[v _Keypad_Init Keypad_Init `(v  1 e 1 0 ]
+"15
+[v _Keypad_Get_Char Keypad_Get_Char `(uc  1 e 1 0 ]
+"3 D:\Practica-3.X\lcd.c
+[v _Lcd_Port Lcd_Port `(v  1 e 1 0 ]
+[v i1_Lcd_Port Lcd_Port `(v  1 e 1 0 ]
+"11
+[v _Lcd_Cmd Lcd_Cmd `(v  1 e 1 0 ]
+[v i1_Lcd_Cmd Lcd_Cmd `(v  1 e 1 0 ]
+"20
+[v _Lcd_Clear Lcd_Clear `(v  1 e 1 0 ]
+"26
+[v _Lcd_Set_Cursor Lcd_Set_Cursor `(v  1 e 1 0 ]
+[v i1_Lcd_Set_Cursor Lcd_Set_Cursor `(v  1 e 1 0 ]
+"63
+[v _Lcd_Init Lcd_Init `(v  1 e 1 0 ]
+"88
+[v _Lcd_Write_Char Lcd_Write_Char `(v  1 e 1 0 ]
+[v i1_Lcd_Write_Char Lcd_Write_Char `(v  1 e 1 0 ]
+"123
+[v _Lcd_Blink Lcd_Blink `(v  1 e 1 0 ]
+"134
+[v _Lcd_Delete_Char Lcd_Delete_Char `(v  1 e 1 0 ]
+"28 D:\Practica-3.X\Practica-3-main.c
+[v _main main `(v  1 e 1 0 ]
+"10 D:\Practica-3.X/ascii_chars.h
+[v _ASCII_CHARS ASCII_CHARS `DC[128]uc  1 e 128 0 ]
+[s S75 . 1 `uc 1 RA0 1 0 :1:0 
+`uc 1 RA1 1 0 :1:1 
+`uc 1 RA2 1 0 :1:2 
+`uc 1 RA3 1 0 :1:3 
+`uc 1 RA4 1 0 :1:4 
+`uc 1 RA5 1 0 :1:5 
+]
+"181 C:/Program Files/Microchip/MPLABX/v6.20/packs/Microchip/PIC16Fxxx_DFP/1.6.156/xc8\pic\include\proc/pic16f873a.h
+[u S82 . 1 `S75 1 . 1 0 ]
+[v _PORTAbits PORTAbits `VES82  1 e 1 @5 ]
+[s S195 . 1 `uc 1 RB0 1 0 :1:0 
+`uc 1 RB1 1 0 :1:1 
+`uc 1 RB2 1 0 :1:2 
+`uc 1 RB3 1 0 :1:3 
+`uc 1 RB4 1 0 :1:4 
+`uc 1 RB5 1 0 :1:5 
+`uc 1 RB6 1 0 :1:6 
+`uc 1 RB7 1 0 :1:7 
+]
+"233
+[u S204 . 1 `S195 1 . 1 0 ]
+[v _PORTBbits PORTBbits `VES204  1 e 1 @6 ]
+[s S252 . 1 `uc 1 RC0 1 0 :1:0 
+`uc 1 RC1 1 0 :1:1 
+`uc 1 RC2 1 0 :1:2 
+`uc 1 RC3 1 0 :1:3 
+`uc 1 RC4 1 0 :1:4 
+`uc 1 RC5 1 0 :1:5 
+`uc 1 RC6 1 0 :1:6 
+`uc 1 RC7 1 0 :1:7 
+]
+"295
+[u S261 . 1 `S252 1 . 1 0 ]
+[v _PORTCbits PORTCbits `VES261  1 e 1 @7 ]
+"959
+[v _TXREG TXREG `VEuc  1 e 1 @25 ]
+"966
+[v _RCREG RCREG `VEuc  1 e 1 @26 ]
+[s S58 . 1 `uc 1 TRISA0 1 0 :1:0 
+`uc 1 TRISA1 1 0 :1:1 
+`uc 1 TRISA2 1 0 :1:2 
+`uc 1 TRISA3 1 0 :1:3 
+`uc 1 TRISA4 1 0 :1:4 
+`uc 1 TRISA5 1 0 :1:5 
+]
+"1240
+[u S65 . 1 `S58 1 . 1 0 ]
+[v _TRISAbits TRISAbits `VES65  1 e 1 @133 ]
+[s S174 . 1 `uc 1 TRISB0 1 0 :1:0 
+`uc 1 TRISB1 1 0 :1:1 
+`uc 1 TRISB2 1 0 :1:2 
+`uc 1 TRISB3 1 0 :1:3 
+`uc 1 TRISB4 1 0 :1:4 
+`uc 1 TRISB5 1 0 :1:5 
+`uc 1 TRISB6 1 0 :1:6 
+`uc 1 TRISB7 1 0 :1:7 
+]
+"1292
+[u S183 . 1 `S174 1 . 1 0 ]
+[v _TRISBbits TRISBbits `VES183  1 e 1 @134 ]
+[s S275 . 1 `uc 1 TRISC0 1 0 :1:0 
+`uc 1 TRISC1 1 0 :1:1 
+`uc 1 TRISC2 1 0 :1:2 
+`uc 1 TRISC3 1 0 :1:3 
+`uc 1 TRISC4 1 0 :1:4 
+`uc 1 TRISC5 1 0 :1:5 
+`uc 1 TRISC6 1 0 :1:6 
+`uc 1 TRISC7 1 0 :1:7 
+]
+"1354
+[u S284 . 1 `S275 1 . 1 0 ]
+[v _TRISCbits TRISCbits `VES284  1 e 1 @135 ]
+"1855
+[v _SPBRG SPBRG `VEuc  1 e 1 @153 ]
+[s S22 . 1 `uc 1 PCFG 1 0 :4:0 
+`uc 1 . 1 0 :2:4 
+`uc 1 ADCS2 1 0 :1:6 
+`uc 1 ADFM 1 0 :1:7 
+]
+"2023
+[s S27 . 1 `uc 1 PCFG0 1 0 :1:0 
+`uc 1 PCFG1 1 0 :1:1 
+`uc 1 PCFG2 1 0 :1:2 
+`uc 1 PCFG3 1 0 :1:3 
+]
+[u S32 . 1 `S22 1 . 1 0 `S27 1 . 1 0 ]
+[v _ADCON1bits ADCON1bits `VES32  1 e 1 @159 ]
+"2294
+[v _CREN CREN `VEb  1 e 0 @196 ]
+"2348
+[v _GIE GIE `VEb  1 e 0 @95 ]
+"2399
+[v _PEIE PEIE `VEb  1 e 0 @94 ]
+"2501
+[v _RCIE RCIE `VEb  1 e 0 @1125 ]
+"2504
+[v _RCIF RCIF `VEb  1 e 0 @101 ]
+"2540
+[v _SPEN SPEN `VEb  1 e 0 @199 ]
+"2570
+[v _SYNC SYNC `VEb  1 e 0 @1220 ]
+"2705
+[v _TRISC6 TRISC6 `VEb  1 e 0 @1086 ]
+"2708
+[v _TRISC7 TRISC7 `VEb  1 e 0 @1087 ]
+"2726
+[v _TXEN TXEN `VEb  1 e 0 @1221 ]
+"2732
+[v _TXIF TXIF `VEb  1 e 0 @100 ]
+"25 D:\Practica-3.X\Practica-3-main.c
+[v _renglon renglon `i  1 e 2 0 ]
+"26
+[v _columna columna `i  1 e 2 0 ]
+"28
+[v _main main `(v  1 e 1 0 ]
+{
+"40
+[v main@caracter_asc caracter_asc `[4]uc  1 a 4 36 ]
+"37
+[v main@CaracteresEscritos CaracteresEscritos `i  1 a 2 43 ]
+"38
+[v main@CaracterEnAsc CaracterEnAsc `i  1 a 2 40 ]
+"41
+[v main@caracter caracter `uc  1 a 1 45 ]
+"43
+[v main@tecla tecla `uc  1 a 1 42 ]
+"214
+} 0
+"3 C:\Program Files\Microchip\xc8\v3.00\pic\sources\c99\common\memset.c
+[v _memset memset `(*.4v  1 e 1 0 ]
+{
+"5
+[v memset@p p `*.4uc  1 a 1 18 ]
+"3
+[v memset@dest dest `*.4v  1 p 1 13 ]
+[v memset@c c `i  1 p 2 14 ]
+[v memset@n n `ui  1 p 2 16 ]
+"10
+} 0
+"58 D:\Practica-3.X\funciones.c
+[v _enviarInformacion enviarInformacion `(v  1 e 1 0 ]
+{
+[v enviarInformacion@renglon renglon `i  1 p 2 14 ]
+[v enviarInformacion@columna columna `i  1 p 2 16 ]
+[v enviarInformacion@caracter caracter `uc  1 p 1 18 ]
+"62
+} 0
+"26
+[v _USART_Write USART_Write `(v  1 e 1 0 ]
+{
+[v USART_Write@data data `uc  1 p 1 wreg ]
+[v USART_Write@data data `uc  1 p 1 wreg ]
+[v USART_Write@data data `uc  1 p 1 13 ]
+"29
+} 0
+"5 C:\Program Files\Microchip\xc8\v3.00\pic\sources\c99\common\atoi.c
+[v _atoi atoi `(i  1 e 2 0 ]
+{
+"7
+[v atoi@n n `i  1 a 2 24 ]
+"8
+[v atoi@neg neg `a  1 a 1 23 ]
+"5
+[v atoi@s s `*.4DCuc  1 p 1 19 ]
+"24
+} 0
+"15 C:\Program Files\Microchip\xc8\v3.00\pic\sources\c99\common\Umul16.c
+[v ___wmul __wmul `(ui  1 e 2 0 ]
+{
+"17
+[v ___wmul@product product `ui  1 a 2 17 ]
+"15
+[v ___wmul@multiplier multiplier `ui  1 p 2 13 ]
+[v ___wmul@multiplicand multiplicand `ui  1 p 2 15 ]
+"53
+} 0
+"16 D:\Practica-3.X\funciones.c
+[v _USART_Init USART_Init `(v  1 e 1 0 ]
+{
+[v USART_Init@baud baud `l  1 p 4 28 ]
+"24
+} 0
+"5 C:\Program Files\Microchip\xc8\v3.00\pic\sources\c99\common\aldiv.c
+[v ___aldiv __aldiv `(l  1 e 4 0 ]
+{
+"10
+[v ___aldiv@quotient quotient `l  1 a 4 24 ]
+"11
+[v ___aldiv@sign sign `uc  1 a 1 23 ]
+[v ___aldiv@counter counter `uc  1 a 1 22 ]
+"5
+[v ___aldiv@divisor divisor `l  1 p 4 13 ]
+[v ___aldiv@dividend dividend `l  1 p 4 17 ]
+"41
+} 0
+"63 D:\Practica-3.X\lcd.c
+[v _Lcd_Init Lcd_Init `(v  1 e 1 0 ]
+{
+"86
+} 0
+"20
+[v _Lcd_Clear Lcd_Clear `(v  1 e 1 0 ]
+{
+"24
+} 0
+"134
+[v _Lcd_Delete_Char Lcd_Delete_Char `(v  1 e 1 0 ]
+{
+[v Lcd_Delete_Char@renglon renglon `i  1 p 2 23 ]
+[v Lcd_Delete_Char@columna columna `i  1 p 2 25 ]
+"138
+} 0
+"88
+[v _Lcd_Write_Char Lcd_Write_Char `(v  1 e 1 0 ]
+{
+[v Lcd_Write_Char@a a `uc  1 p 1 wreg ]
+"90
+[v Lcd_Write_Char@y y `uc  1 a 1 16 ]
+[v Lcd_Write_Char@temp temp `uc  1 a 1 15 ]
+"88
+[v Lcd_Write_Char@a a `uc  1 p 1 wreg ]
+"91
+[v Lcd_Write_Char@a a `uc  1 p 1 17 ]
+"102
+} 0
+"26
+[v _Lcd_Set_Cursor Lcd_Set_Cursor `(v  1 e 1 0 ]
+{
+[v Lcd_Set_Cursor@a a `uc  1 p 1 wreg ]
+"28
+[v Lcd_Set_Cursor@temp temp `uc  1 a 1 22 ]
+[v Lcd_Set_Cursor@y y `uc  1 a 1 21 ]
+[v Lcd_Set_Cursor@z z `uc  1 a 1 20 ]
+"26
+[v Lcd_Set_Cursor@a a `uc  1 p 1 wreg ]
+[v Lcd_Set_Cursor@b b `uc  1 p 1 17 ]
+"29
+[v Lcd_Set_Cursor@a a `uc  1 p 1 19 ]
+"61
+} 0
+"123
+[v _Lcd_Blink Lcd_Blink `(v  1 e 1 0 ]
+{
+"127
+} 0
+"11
+[v _Lcd_Cmd Lcd_Cmd `(v  1 e 1 0 ]
+{
+[v Lcd_Cmd@a a `uc  1 p 1 wreg ]
+[v Lcd_Cmd@a a `uc  1 p 1 wreg ]
+"13
+[v Lcd_Cmd@a a `uc  1 p 1 16 ]
+"18
+} 0
+"3
+[v _Lcd_Port Lcd_Port `(v  1 e 1 0 ]
+{
+[v Lcd_Port@a a `uc  1 p 1 wreg ]
+[v Lcd_Port@a a `uc  1 p 1 wreg ]
+"5
+[v Lcd_Port@a a `uc  1 p 1 13 ]
+"9
+} 0
+"3 D:\Practica-3.X\kbd4x4.c
+[v _Keypad_Init Keypad_Init `(v  1 e 1 0 ]
+{
+"13
+} 0
+"15
+[v _Keypad_Get_Char Keypad_Get_Char `(uc  1 e 1 0 ]
+{
+"133
+} 0
+"6 D:\Practica-3.X\funciones.c
+[v _Buzzer_On Buzzer_On `(v  1 e 1 0 ]
+{
+[v Buzzer_On@duration_ms duration_ms `ui  1 p 2 13 ]
+"14
+} 0
+"31
+[v _ISR ISR `II(v  1 e 1 0 ]
+{
+"36
+[v ISR@dato dato `uc  1 a 1 12 ]
+"32
+[v ISR@renglon_recibido renglon_recibido `uc  1 s 1 renglon_recibido ]
+[v ISR@columna_recibida columna_recibida `uc  1 s 1 columna_recibida ]
+[v ISR@caracter_recibido caracter_recibido `uc  1 s 1 caracter_recibido ]
+"33
+[v ISR@estado estado `uc  1 s 1 estado ]
+"56
+} 0
+"88 D:\Practica-3.X\lcd.c
+[v i1_Lcd_Write_Char Lcd_Write_Char `(v  1 e 1 0 ]
+{
+[v i1Lcd_Write_Char@a a `uc  1 p 1 wreg ]
+"90
+[v i1Lcd_Write_Char@y y `uc  1 a 1 3 ]
+[v i1Lcd_Write_Char@temp temp `uc  1 a 1 2 ]
+"88
+[v i1Lcd_Write_Char@a a `uc  1 p 1 wreg ]
+"91
+[v i1Lcd_Write_Char@a a `uc  1 p 1 4 ]
+"102
+} 0
+"26
+[v i1_Lcd_Set_Cursor Lcd_Set_Cursor `(v  1 e 1 0 ]
+{
+[v i1Lcd_Set_Cursor@a a `uc  1 p 1 wreg ]
+"28
+[v i1Lcd_Set_Cursor@temp temp `uc  1 a 1 9 ]
+[v i1Lcd_Set_Cursor@y y `uc  1 a 1 8 ]
+[v i1Lcd_Set_Cursor@z z `uc  1 a 1 7 ]
+"26
+[v i1Lcd_Set_Cursor@a a `uc  1 p 1 wreg ]
+[v i1Lcd_Set_Cursor@b b `uc  1 p 1 4 ]
+"29
+[v i1Lcd_Set_Cursor@a a `uc  1 p 1 6 ]
+"61
+} 0
+"11
+[v i1_Lcd_Cmd Lcd_Cmd `(v  1 e 1 0 ]
+{
+[v i1Lcd_Cmd@a a `uc  1 p 1 wreg ]
+[v i1Lcd_Cmd@a a `uc  1 p 1 wreg ]
+"13
+[v i1Lcd_Cmd@a a `uc  1 p 1 3 ]
+"18
+} 0
+"3
+[v i1_Lcd_Port Lcd_Port `(v  1 e 1 0 ]
+{
+[v i1Lcd_Port@a a `uc  1 p 1 wreg ]
+[v i1Lcd_Port@a a `uc  1 p 1 wreg ]
+"5
+[v i1Lcd_Port@a a `uc  1 p 1 0 ]
+"9
+} 0
