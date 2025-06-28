@@ -4,7 +4,6 @@
     <logicalFolder name="HeaderFiles"
                    displayName="Header Files"
                    projectFiles="true">
-      <itemPath>ascii_chars.h</itemPath>
       <itemPath>lcd.h</itemPath>
       <itemPath>kbd4x4.h</itemPath>
       <itemPath>funciones.h</itemPath>
@@ -155,6 +154,12 @@
         <property key="codecoverage.enabled" value="Disable"/>
         <property key="codecoverage.enableoutputtofile" value="false"/>
         <property key="codecoverage.outputfile" value=""/>
+        <property key="debugoptions.debug-startup" value="Use system settings"/>
+        <property key="debugoptions.reset-behaviour" value="Use system settings"/>
+        <property key="event.recorder.debugger.behavior" value="Running"/>
+        <property key="event.recorder.enabled" value="false"/>
+        <property key="event.recorder.scvd.files" value=""/>
+        <property key="lastid" value=""/>
         <property key="oscillator.auxfrequency" value="120"/>
         <property key="oscillator.auxfrequencyunit" value="Mega"/>
         <property key="oscillator.frequency" value="1"/>
@@ -624,6 +629,12 @@
         <property key="codecoverage.enabled" value="Disable"/>
         <property key="codecoverage.enableoutputtofile" value="false"/>
         <property key="codecoverage.outputfile" value=""/>
+        <property key="debugoptions.debug-startup" value="Use system settings"/>
+        <property key="debugoptions.reset-behaviour" value="Use system settings"/>
+        <property key="event.recorder.debugger.behavior" value="Running"/>
+        <property key="event.recorder.enabled" value="false"/>
+        <property key="event.recorder.scvd.files" value=""/>
+        <property key="lastid" value=""/>
         <property key="oscillator.auxfrequency" value="120"/>
         <property key="oscillator.auxfrequencyunit" value="Mega"/>
         <property key="oscillator.frequency" value="1"/>
@@ -1091,7 +1102,7 @@
       </Tool>
       <XC8-CO>
         <property key="coverage-enable" value=""/>
-        <property key="stack-guidance" value="false"/>
+        <property key="stack-guidance" value="true"/>
       </XC8-CO>
       <XC8-config-global>
         <property key="advanced-elf" value="true"/>

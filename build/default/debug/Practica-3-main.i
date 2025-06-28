@@ -1,4 +1,4 @@
-# 1 "kbd4x4.c"
+# 1 "Practica-3-main.c"
 # 1 "<built-in>" 1
 # 1 "<built-in>" 3
 # 285 "<built-in>" 3
@@ -6,12 +6,12 @@
 # 1 "<built-in>" 2
 # 1 "C:\\Program Files\\Microchip\\xc8\\v3.00\\pic\\include/language_support.h" 1 3
 # 2 "<built-in>" 2
-# 1 "kbd4x4.c" 2
-# 1 "./kbd4x4.h" 1
+# 1 "Practica-3-main.c" 2
 
 
 
-
+#pragma config FOSC = HS, WDTE = OFF, PWRTE = ON, BOREN = ON
+#pragma config LVP = OFF, CPD = OFF, WRT = OFF, CP = OFF
 
 
 # 1 "C:\\Program Files\\Microchip\\xc8\\v3.00\\pic\\include/xc.h" 1 3
@@ -1745,140 +1745,238 @@ extern __bank0 unsigned char __resetbits;
 extern __bank0 __bit __powerdown;
 extern __bank0 __bit __timeout;
 # 29 "C:\\Program Files\\Microchip\\xc8\\v3.00\\pic\\include/xc.h" 2 3
-# 8 "./kbd4x4.h" 2
+# 9 "Practica-3-main.c" 2
+
+# 1 "./lcd.h" 1
+# 27 "./lcd.h"
+void Lcd_Port(char a);
+void Lcd_Cmd(char a);
+void Lcd_Clear(void);
+void Lcd_Set_Cursor(char a, char b);
+void Lcd_Init(void);
+void Lcd_Write_Char(char a);
+void Lcd_Write_String(const char *a);
+
+
+void Lcd_Blink(void);
+void Lcd_NoBlink(void);
+void Lcd_Delete_Char(int renglon, int columna);
+# 11 "Practica-3-main.c" 2
+# 1 "./kbd4x4.h" 1
 # 28 "./kbd4x4.h"
 void Keypad_Init(void);
 char Keypad_Get_Char(void);
-# 2 "kbd4x4.c" 2
+# 12 "Practica-3-main.c" 2
+# 1 "./funciones.h" 1
+# 31 "./funciones.h"
+extern int renglon;
+extern int columna;
 
-void Keypad_Init(void)
-{
+void Buzzer_On(unsigned int duration_ms);
+void USART_Init(long baud);
+void USART_Write(char data);
+void enviarInformacion(int renglon, int columna, char caracter);
+void __attribute__((picinterrupt(("")))) ISR();
+# 13 "Practica-3-main.c" 2
 
 
 
 
-    TRISBbits.TRISB3 = 1;
-    TRISBbits.TRISB2 = 1;
-    TRISBbits.TRISB1 = 1;
-    TRISBbits.TRISB0 = 1;
+
+
+
+
+const uint8_t idxRef[6] = {3,5, 8,10, 13,15};
+const uint8_t idxPWM[4] = {2,3, 7,8};
+
+
+char line0[17] = "A1:0.02:0.03:0.0";
+char ref0 [17] = "R1:-.-2:-.-3:-.-";
+char pwmStr[17]= "F:01kD:00       ";
+
+
+char buf1[33];
+char buf3[33];
+
+
+volatile uint16_t pulseCnt = 0;
+char *activeBuf = ref0;
+const uint8_t *map = idxRef;
+uint8_t lenMap = 6, page = 0, pos = 0;
+int renglon = 1, columna = 1;
+char key;
+
+
+void USART_Init(long baud){
+    TRISC6 = 0; TRISC7 = 1;
+    SPBRG = (4000000 / (64 * baud)) - 1;
+    SYNC = 0; SPEN = 1; CREN = 1; TXEN = 1;
+}
+void USART_Write(char d){ while(!TXIF); TXREG = d; }
+
+
+static void txPage(const char *p){
+    for(uint8_t r = 1; r <= 2; r++){
+        const char *row = p + (r - 1) * 16;
+        for(uint8_t c = 1; c <= 16; c++)
+            USART_Write(r), USART_Write(c), USART_Write(*row++);
+    }
 }
 
-char Keypad_Get_Char(void)
+
+
+void __attribute__((picinterrupt(("")))) ISR(void)
 {
-    PORTBbits.RB4 = 0;
-    PORTBbits.RB5 = 1;
-    PORTBbits.RB6 = 1;
-    PORTBbits.RB7 = 1;
-    if(PORTBbits.RB3 == 0){
-        _delay((unsigned long)((2)*(4000000/4000.0)));
-        while(PORTBbits.RB3 == 0);
-        _delay((unsigned long)((5)*(4000000/4000.0)));
-        return '1';
-    }
-    if(PORTBbits.RB2 == 0){
-        _delay((unsigned long)((2)*(4000000/4000.0)));
-        while(PORTBbits.RB2 == 0);
-        _delay((unsigned long)((5)*(4000000/4000.0)));
-        return '2';
-    }
-    if(PORTBbits.RB1 == 0){
-        _delay((unsigned long)((2)*(4000000/4000.0)));
-        while(PORTBbits.RB1 == 0);
-        _delay((unsigned long)((5)*(4000000/4000.0)));
-        return '3';
-    }
-    if(PORTBbits.RB0 == 0){
-        _delay((unsigned long)((2)*(4000000/4000.0)));
-        while(PORTBbits.RB0 == 0);
-        _delay((unsigned long)((5)*(4000000/4000.0)));
-        return 'A';
-    }
+    static uint8_t st = 0, r = 0, c = 0, sel = 0;
 
-    PORTBbits.RB4 = 1;
-    PORTBbits.RB5 = 0;
-    PORTBbits.RB6 = 1;
-    PORTBbits.RB7 = 1;
-    if(PORTBbits.RB3 == 0){
-        _delay((unsigned long)((2)*(4000000/4000.0)));
-        while(PORTBbits.RB3 == 0);
-        _delay((unsigned long)((5)*(4000000/4000.0)));
-        return '4';
-    }
-    if(PORTBbits.RB2 == 0){
-        _delay((unsigned long)((2)*(4000000/4000.0)));
-        while(PORTBbits.RB2 == 0);
-        _delay((unsigned long)((5)*(4000000/4000.0)));
-        return '5';
-    }
-    if(PORTBbits.RB1 == 0){
-        _delay((unsigned long)((2)*(4000000/4000.0)));
-        while(PORTBbits.RB1 == 0);
-        _delay((unsigned long)((5)*(4000000/4000.0)));
-        return '6';
-    }
-    if(PORTBbits.RB0 == 0){
-        _delay((unsigned long)((2)*(4000000/4000.0)));
-        while(PORTBbits.RB0 == 0);
-        _delay((unsigned long)((5)*(4000000/4000.0)));
-        return 'B';
-    }
+    if (T0IF){ pulseCnt += 256; T0IF = 0; }
 
-    PORTBbits.RB4 = 1;
-    PORTBbits.RB5 = 1;
-    PORTBbits.RB6 = 0;
-    PORTBbits.RB7 = 1;
-    if(PORTBbits.RB3 == 0){
-        _delay((unsigned long)((2)*(4000000/4000.0)));
-        while(PORTBbits.RB3 == 0);
-        _delay((unsigned long)((5)*(4000000/4000.0)));
-        return '7';
+    if (RCIF){
+        char d = RCREG;
+        if (st == 0){ r = d; st = 1; }
+        else if (st == 1){ c = d; st = 2; }
+        else {
+            char *dst = (sel ? buf3 : buf1) + (r - 1) * 16 + (c - 1);
+            *dst = d;
+            if (page == (sel ? 3 : 1)){
+                Lcd_Set_Cursor(r, c);
+                Lcd_Write_Char(d);
+            }
+            if (r == 2 && c == 16) sel ^= 1;
+            st = 0;
+        }
     }
-    if(PORTBbits.RB2 == 0){
-        _delay((unsigned long)((2)*(4000000/4000.0)));
-        while(PORTBbits.RB2 == 0);
-        _delay((unsigned long)((5)*(4000000/4000.0)));
-        return '8';
-    }
-    if(PORTBbits.RB1 == 0){
-        _delay((unsigned long)((2)*(4000000/4000.0)));
-        while(PORTBbits.RB1 == 0);
-        _delay((unsigned long)((5)*(4000000/4000.0)));
-        return '9';
-    }
-    if(PORTBbits.RB0 == 0){
-        _delay((unsigned long)((2)*(4000000/4000.0)));
-        while(PORTBbits.RB0 == 0);
-        _delay((unsigned long)((5)*(4000000/4000.0)));
-        return 'C';
-    }
+}
 
-    PORTBbits.RB4 = 1;
-    PORTBbits.RB5 = 1;
-    PORTBbits.RB6 = 1;
-    PORTBbits.RB7 = 0;
-    if(PORTBbits.RB3 == 0){
-        _delay((unsigned long)((2)*(4000000/4000.0)));
-        while(PORTBbits.RB3 == 0);
-        _delay((unsigned long)((5)*(4000000/4000.0)));
-        return '*';
+
+static __attribute__((inline)) uint8_t toDeciv(uint16_t v){ return (v * 50U + 511U) / 1023U; }
+static __attribute__((inline)) uint8_t refDec(const char *p){ return (p[0]=='-'||p[2]=='-')?255:(p[0]-'0')*10 + p[2]-'0'; }
+
+static __attribute__((inline)) void build0(uint8_t d0,uint8_t d1,uint8_t d2){
+    line0[3]=d0/10+'0'; line0[4]='.'; line0[5]=d0%10+'0';
+    line0[8]=d1/10+'0'; line0[9]='.'; line0[10]=d1%10+'0';
+    line0[13]=d2/10+'0'; line0[14]='.'; line0[15]=d2%10+'0';
+}
+static __attribute__((inline)) void cursor(void){ Lcd_Set_Cursor(2, map[pos] + 1); }
+static __attribute__((inline)) void row16(const char *p){ for(uint8_t i=0;i<16;i++) Lcd_Write_Char(p[i]); }
+
+
+static void ADC_Init(void){
+    TRISAbits.TRISA0 = TRISAbits.TRISA1 = TRISAbits.TRISA2 = 1;
+    ADCON1 = 0b10001110; (ADCON0 = (ADCON0 & 0b11000101) | (0 << 3));
+    ADCON0bits.ADON = 1; _delay((unsigned long)((2)*(4000000/4000.0)));
+}
+static uint16_t adc(uint8_t ch){
+    if(ch==1)(ADCON0 = (ADCON0 & 0b11000101) | (1 << 3)); else if(ch==2)(ADCON0 = (ADCON0 & 0b11000101) | (2 << 3)); else (ADCON0 = (ADCON0 & 0b11000101) | (0 << 3));
+    _delay((unsigned long)((15)*(4000000/4000000.0))); GO_nDONE = 1; while(GO_nDONE);
+    return ((uint16_t)ADRESH << 8) | ADRESL;
+}
+static void PWM_LED_Init(void){
+    TRISCbits.TRISC2 = 0; CCP1CON = 0b00001100; T2CON = 0b00000111; PR2 = 124;
+}
+static void PWM_LED_Set(uint8_t pct){
+    uint16_t r = pct * 5; if(r > 500) r = 500;
+    CCPR1L = (uint8_t)(r >> 2);
+    CCP1CONbits.CCP1Y = (r >> 1) & 1; CCP1CONbits.CCP1X = r & 1;
+}
+static void PWM1_Init(void){ TRISCbits.TRISC1 = 0; CCP2CON = 0b00001100; }
+static void PWM1_Set(uint8_t k,uint8_t d){
+    if(k<1)k=1; if(k>62)k=62; PR2 = 62 - k;
+    uint16_t r = d * 5; if(r > 500) r = 500;
+    CCPR2L = (uint8_t)(r >> 2);
+    CCP2CONbits.CCP2Y = (r >> 1) & 1; CCP2CONbits.CCP2X = r & 1;
+}
+
+
+static void show(uint8_t pg){
+    Lcd_Clear();
+    switch(pg){
+        case 0:
+            Lcd_Set_Cursor(1,1); row16(line0);
+            Lcd_Set_Cursor(2,1); row16(ref0);
+            activeBuf = ref0; map = idxRef; lenMap = 6; pos = 0;
+            Lcd_Blink(); cursor(); break;
+        case 1:
+            Lcd_Set_Cursor(1,1); row16(buf1);
+            Lcd_Set_Cursor(2,1); row16(buf1 + 16);
+            Lcd_NoBlink(); break;
+        case 2:
+            Lcd_Set_Cursor(1,1); row16("CNT:00000       ");
+            Lcd_Set_Cursor(2,1); row16(pwmStr);
+            activeBuf = pwmStr; map = idxPWM; lenMap = 4; pos = 0;
+            Lcd_Blink(); cursor(); break;
+        case 3:
+            Lcd_Set_Cursor(1,1); row16(buf3);
+            Lcd_Set_Cursor(2,1); row16(buf3 + 16);
+            Lcd_NoBlink(); break;
     }
-    if(PORTBbits.RB2 == 0){
-        _delay((unsigned long)((2)*(4000000/4000.0)));
-        while(PORTBbits.RB2 == 0);
-        _delay((unsigned long)((5)*(4000000/4000.0)));
-        return '0';
+}
+
+
+void main(void)
+{
+    TRISCbits.TRISC0 = 0; PORTCbits.RC0 = 0; TRISCbits.TRISC4 = 0; PORTCbits.RC4 = 1;
+
+    PWM_LED_Init(); PWM1_Init(); ADC_Init(); USART_Init(9600);
+    TMR0 = 0; OPTION_REG = 0b00000001; T0IE = 1; GIE = 1;
+
+    Keypad_Init(); Lcd_Init(); show(page);
+
+
+    txPage(line0);
+
+
+    uint8_t buzLatch = 0;
+
+    while(1){
+        if(page == 0){
+            uint8_t d0 = toDeciv(adc(0));
+            uint8_t d1 = toDeciv(adc(1));
+            uint8_t d2 = toDeciv(adc(2));
+            build0(d0,d1,d2);
+            Lcd_Set_Cursor(1,1); row16(line0);
+
+            txPage(line0);
+
+            PORTCbits.RC0 = (refDec(&ref0[3])!=255 && d0>refDec(&ref0[3]));
+            PWM_LED_Set(d1 * 2);
+            if(refDec(&ref0[13])!=255 && d2>refDec(&ref0[13])){
+                if(!buzLatch){ Buzzer_On(200); buzLatch=1; }
+            } else buzLatch = 0;
+        }
+
+        if(page == 2){
+            static char cntRow[17] = "CNT:00000       ";
+            uint16_t total; (INTCONbits.GIE = 0); total = pulseCnt + TMR0; (INTCONbits.GIE = 1);
+            cntRow[4]=(total/10000)%10+'0'; cntRow[5]=(total/1000)%10+'0';
+            cntRow[6]=(total/100)%10+'0'; cntRow[7]=(total/10)%10+'0';
+            cntRow[8]= total%10+'0';
+            Lcd_Set_Cursor(1,1); row16(cntRow);
+
+            txPage(cntRow);
+
+        }
+
+        key = Keypad_Get_Char(); if(!key) continue;
+
+        if(key == 'D'){ page = (page+1)%4; show(page); _delay((unsigned long)((120)*(4000000/4000.0))); continue; }
+        if(page == 1 || page == 3) continue;
+
+        switch(key){
+            case '*': pos = (pos==0)?lenMap-1:pos-1; cursor(); break;
+            case '#': pos = (pos==lenMap-1)?0:pos+1; cursor(); break;
+            case 'B': activeBuf[map[pos]]='-'; Lcd_Set_Cursor(2,1); row16(activeBuf); cursor(); break;
+            default:
+                if(key>='0' && key<='9'){
+                    activeBuf[map[pos]] = key;
+                    Lcd_Set_Cursor(2,1); row16(activeBuf);
+                    pos = (pos==lenMap-1)?0:pos+1; cursor();
+                    if(page == 2){
+                        uint8_t k = (pwmStr[2]-'0')*10 + (pwmStr[3]-'0');
+                        uint8_t d = (pwmStr[7]-'0')*10 + (pwmStr[8]-'0');
+                        PWM1_Set(k,d);
+                    }
+                }
+        }
     }
-    if(PORTBbits.RB1 == 0){
-        _delay((unsigned long)((2)*(4000000/4000.0)));
-        while(PORTBbits.RB1 == 0);
-        _delay((unsigned long)((5)*(4000000/4000.0)));
-        return '#';
-    }
-    if(PORTBbits.RB0 == 0){
-        _delay((unsigned long)((2)*(4000000/4000.0)));
-        while(PORTBbits.RB0 == 0);
-        _delay((unsigned long)((5)*(4000000/4000.0)));
-        return 'D';
-    }
-    return 0;
 }

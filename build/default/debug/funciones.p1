@@ -226,8 +226,8 @@ Version 4.0 HI-TECH Software Intermediate Code
 [; ;funciones.c: 14: }
 [e :UE 91 ]
 }
-"16
-[; ;funciones.c: 16: void enviarInformacion(int renglon,int columna,char caracter){
+"21
+[; ;funciones.c: 21: void enviarInformacion(int renglon,int columna,char caracter){
 [v _enviarInformacion `(v ~T0 @X0 1 ef3`i`i`uc ]
 {
 [e :U _enviarInformacion ]
@@ -235,16 +235,16 @@ Version 4.0 HI-TECH Software Intermediate Code
 [v _columna `i ~T0 @X0 1 r2 ]
 [v _caracter `uc ~T0 @X0 1 r3 ]
 [f ]
-"17
-[; ;funciones.c: 17:     USART_Write((char)renglon);
+"22
+[; ;funciones.c: 22:     USART_Write((char)renglon);
 [e ( _USART_Write (1 -> _renglon `uc ]
-"18
-[; ;funciones.c: 18:     USART_Write((char)columna);
+"23
+[; ;funciones.c: 23:     USART_Write((char)columna);
 [e ( _USART_Write (1 -> _columna `uc ]
-"19
-[; ;funciones.c: 19:     USART_Write(caracter);
+"24
+[; ;funciones.c: 24:     USART_Write(caracter);
 [e ( _USART_Write (1 _caracter ]
-"20
-[; ;funciones.c: 20: }
+"25
+[; ;funciones.c: 25: }
 [e :UE 95 ]
 }

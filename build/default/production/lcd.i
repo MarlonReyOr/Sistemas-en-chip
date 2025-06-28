@@ -1755,8 +1755,8 @@ void Lcd_Set_Cursor(char a, char b);
 void Lcd_Init(void);
 void Lcd_Write_Char(char a);
 void Lcd_Write_String(const char *a);
-void Lcd_Shift_Right(void);
-void Lcd_Shift_Left(void);
+
+
 void Lcd_Blink(void);
 void Lcd_NoBlink(void);
 void Lcd_Delete_Char(int renglon, int columna);
@@ -1772,17 +1772,19 @@ void Lcd_Port(char a)
 
 void Lcd_Cmd(char a)
 {
-    PORTCbits.RC0 = 0;
+    PORTCbits.RC3 = 0;
     Lcd_Port(a);
-    PORTCbits.RC2 = 1;
-    _delay((unsigned long)((4)*(4000000/4000.0)));
-    PORTCbits.RC2 = 0;
+    PORTCbits.RC5 = 1;
+    _delay((unsigned long)((1)*(4000000/4000000.0)));
+    PORTCbits.RC5 = 0;
+    _delay((unsigned long)((2)*(4000000/4000.0)));
 }
 
 void Lcd_Clear(void)
 {
     Lcd_Cmd(0);
     Lcd_Cmd(1);
+    _delay((unsigned long)((2)*(4000000/4000.0)));
 }
 
 void Lcd_Set_Cursor(char a, char b)
@@ -1824,62 +1826,104 @@ void Lcd_Set_Cursor(char a, char b)
 
 void Lcd_Init(void)
 {
- TRISCbits.TRISC0 = 0;
- TRISCbits.TRISC2 = 0;
- TRISBbits.TRISB4 = 0;
- TRISBbits.TRISB5 = 0;
- TRISBbits.TRISB6 = 0;
- TRISBbits.TRISB7 = 0;
+
+    TRISCbits.TRISC3 = 0;
+    TRISCbits.TRISC5 = 0;
+    TRISBbits.TRISB4 = 0;
+    TRISBbits.TRISB5 = 0;
+    TRISBbits.TRISB6 = 0;
+    TRISBbits.TRISB7 = 0;
+
+
+    PORTCbits.RC3 = 0;
+    PORTCbits.RC5 = 0;
     Lcd_Port(0x00);
-    _delay((unsigned long)((20)*(4000000/4000.0)));
-    Lcd_Cmd(0x03);
+
+
+    _delay((unsigned long)((50)*(4000000/4000.0)));
+
+
+
+    Lcd_Port(0x03);
+    PORTCbits.RC5 = 1;
+    _delay((unsigned long)((1)*(4000000/4000000.0)));
+    PORTCbits.RC5 = 0;
     _delay((unsigned long)((5)*(4000000/4000.0)));
-    Lcd_Cmd(0x03);
-    _delay((unsigned long)((11)*(4000000/4000.0)));
-    Lcd_Cmd(0x03);
-    Lcd_Cmd(0x02);
+
+
+    Lcd_Port(0x03);
+    PORTCbits.RC5 = 1;
+    _delay((unsigned long)((1)*(4000000/4000000.0)));
+    PORTCbits.RC5 = 0;
+    _delay((unsigned long)((1)*(4000000/4000.0)));
+
+
+    Lcd_Port(0x03);
+    PORTCbits.RC5 = 1;
+    _delay((unsigned long)((1)*(4000000/4000000.0)));
+    PORTCbits.RC5 = 0;
+    _delay((unsigned long)((1)*(4000000/4000.0)));
+
+
+    Lcd_Port(0x02);
+    PORTCbits.RC5 = 1;
+    _delay((unsigned long)((1)*(4000000/4000000.0)));
+    PORTCbits.RC5 = 0;
+    _delay((unsigned long)((1)*(4000000/4000.0)));
+
+
+
     Lcd_Cmd(0x02);
     Lcd_Cmd(0x08);
+
+
     Lcd_Cmd(0x00);
-    Lcd_Cmd(0x0C);
+    Lcd_Cmd(0x08);
+
+
+    Lcd_Cmd(0x00);
+    Lcd_Cmd(0x01);
+    _delay((unsigned long)((2)*(4000000/4000.0)));
+
+
     Lcd_Cmd(0x00);
     Lcd_Cmd(0x06);
-    Lcd_Clear();
+
+
+    Lcd_Cmd(0x00);
+    Lcd_Cmd(0x0C);
+
+    _delay((unsigned long)((2)*(4000000/4000.0)));
 }
 
 void Lcd_Write_Char(char a)
 {
     char temp,y;
-    temp = a&0x0F;
-    y = a&0xF0;
-    PORTCbits.RC0 = 1;
-    Lcd_Port(y>>4);
-    PORTCbits.RC2 = 1;
-    _delay((unsigned long)((40)*(4000000/4000000.0)));
-    PORTCbits.RC2 = 0;
+    temp = a & 0x0F;
+    y = (a & 0xF0) >> 4;
+
+    PORTCbits.RC3 = 1;
+
+
+    Lcd_Port(y);
+    PORTCbits.RC5 = 1;
+    _delay((unsigned long)((1)*(4000000/4000000.0)));
+    PORTCbits.RC5 = 0;
+    _delay((unsigned long)((50)*(4000000/4000000.0)));
+
+
     Lcd_Port(temp);
-    PORTCbits.RC2 = 1;
-    _delay((unsigned long)((40)*(4000000/4000000.0)));
-    PORTCbits.RC2 = 0;
+    PORTCbits.RC5 = 1;
+    _delay((unsigned long)((1)*(4000000/4000000.0)));
+    PORTCbits.RC5 = 0;
+    _delay((unsigned long)((50)*(4000000/4000000.0)));
 }
 
 void Lcd_Write_String(const char *a)
 {
     int i;
-    for(i=0;a[i]!='\0';i++)
+    for(i=0; a[i]!='\0' && i<16; i++)
         Lcd_Write_Char(a[i]);
-}
-
-void Lcd_Shift_Right(void)
-{
-    Lcd_Cmd(0x01);
-    Lcd_Cmd(0x0C);
-}
-
-void Lcd_Shift_Left(void)
-{
-    Lcd_Cmd(0x01);
-    Lcd_Cmd(0x08);
 }
 
 void Lcd_Blink(void)
@@ -1893,6 +1937,7 @@ void Lcd_NoBlink(void)
     Lcd_Cmd(0x00);
     Lcd_Cmd(0x0C);
 }
+
 void Lcd_Delete_Char(int renglon, int columna) {
     Lcd_Set_Cursor(renglon,columna);
     Lcd_Write_Char(' ');

@@ -1,4 +1,4 @@
-# 1 "kbd4x4.c"
+# 1 "funciones.c"
 # 1 "<built-in>" 1
 # 1 "<built-in>" 3
 # 285 "<built-in>" 3
@@ -6,14 +6,7 @@
 # 1 "<built-in>" 2
 # 1 "C:\\Program Files\\Microchip\\xc8\\v3.00\\pic\\include/language_support.h" 1 3
 # 2 "<built-in>" 2
-# 1 "kbd4x4.c" 2
-# 1 "./kbd4x4.h" 1
-
-
-
-
-
-
+# 1 "funciones.c" 2
 # 1 "C:\\Program Files\\Microchip\\xc8\\v3.00\\pic\\include/xc.h" 1 3
 # 18 "C:\\Program Files\\Microchip\\xc8\\v3.00\\pic\\include/xc.h" 3
 extern const char __xc8_OPTIM_SPEED;
@@ -1745,140 +1738,52 @@ extern __bank0 unsigned char __resetbits;
 extern __bank0 __bit __powerdown;
 extern __bank0 __bit __timeout;
 # 29 "C:\\Program Files\\Microchip\\xc8\\v3.00\\pic\\include/xc.h" 2 3
-# 8 "./kbd4x4.h" 2
-# 28 "./kbd4x4.h"
-void Keypad_Init(void);
-char Keypad_Get_Char(void);
-# 2 "kbd4x4.c" 2
+# 2 "funciones.c" 2
+# 1 "./lcd.h" 1
+# 27 "./lcd.h"
+void Lcd_Port(char a);
+void Lcd_Cmd(char a);
+void Lcd_Clear(void);
+void Lcd_Set_Cursor(char a, char b);
+void Lcd_Init(void);
+void Lcd_Write_Char(char a);
+void Lcd_Write_String(const char *a);
 
-void Keypad_Init(void)
+
+void Lcd_Blink(void);
+void Lcd_NoBlink(void);
+void Lcd_Delete_Char(int renglon, int columna);
+# 3 "funciones.c" 2
+# 1 "./funciones.h" 1
+# 31 "./funciones.h"
+extern int renglon;
+extern int columna;
+
+void Buzzer_On(unsigned int duration_ms);
+void USART_Init(long baud);
+void USART_Write(char data);
+void enviarInformacion(int renglon, int columna, char caracter);
+void __attribute__((picinterrupt(("")))) ISR();
+# 4 "funciones.c" 2
+
+
+void Buzzer_On(unsigned int duration_ms)
 {
-
-
-
-
-    TRISBbits.TRISB3 = 1;
-    TRISBbits.TRISB2 = 1;
-    TRISBbits.TRISB1 = 1;
-    TRISBbits.TRISB0 = 1;
+    PORTCbits.RC4 = 0;
+    while(duration_ms--)
+    {
+        _delay((unsigned long)((1)*(4000000/4000.0)));
+    }
+    PORTCbits.RC4 = 1;
 }
 
-char Keypad_Get_Char(void)
-{
-    PORTBbits.RB4 = 0;
-    PORTBbits.RB5 = 1;
-    PORTBbits.RB6 = 1;
-    PORTBbits.RB7 = 1;
-    if(PORTBbits.RB3 == 0){
-        _delay((unsigned long)((2)*(4000000/4000.0)));
-        while(PORTBbits.RB3 == 0);
-        _delay((unsigned long)((5)*(4000000/4000.0)));
-        return '1';
-    }
-    if(PORTBbits.RB2 == 0){
-        _delay((unsigned long)((2)*(4000000/4000.0)));
-        while(PORTBbits.RB2 == 0);
-        _delay((unsigned long)((5)*(4000000/4000.0)));
-        return '2';
-    }
-    if(PORTBbits.RB1 == 0){
-        _delay((unsigned long)((2)*(4000000/4000.0)));
-        while(PORTBbits.RB1 == 0);
-        _delay((unsigned long)((5)*(4000000/4000.0)));
-        return '3';
-    }
-    if(PORTBbits.RB0 == 0){
-        _delay((unsigned long)((2)*(4000000/4000.0)));
-        while(PORTBbits.RB0 == 0);
-        _delay((unsigned long)((5)*(4000000/4000.0)));
-        return 'A';
-    }
 
-    PORTBbits.RB4 = 1;
-    PORTBbits.RB5 = 0;
-    PORTBbits.RB6 = 1;
-    PORTBbits.RB7 = 1;
-    if(PORTBbits.RB3 == 0){
-        _delay((unsigned long)((2)*(4000000/4000.0)));
-        while(PORTBbits.RB3 == 0);
-        _delay((unsigned long)((5)*(4000000/4000.0)));
-        return '4';
-    }
-    if(PORTBbits.RB2 == 0){
-        _delay((unsigned long)((2)*(4000000/4000.0)));
-        while(PORTBbits.RB2 == 0);
-        _delay((unsigned long)((5)*(4000000/4000.0)));
-        return '5';
-    }
-    if(PORTBbits.RB1 == 0){
-        _delay((unsigned long)((2)*(4000000/4000.0)));
-        while(PORTBbits.RB1 == 0);
-        _delay((unsigned long)((5)*(4000000/4000.0)));
-        return '6';
-    }
-    if(PORTBbits.RB0 == 0){
-        _delay((unsigned long)((2)*(4000000/4000.0)));
-        while(PORTBbits.RB0 == 0);
-        _delay((unsigned long)((5)*(4000000/4000.0)));
-        return 'B';
-    }
 
-    PORTBbits.RB4 = 1;
-    PORTBbits.RB5 = 1;
-    PORTBbits.RB6 = 0;
-    PORTBbits.RB7 = 1;
-    if(PORTBbits.RB3 == 0){
-        _delay((unsigned long)((2)*(4000000/4000.0)));
-        while(PORTBbits.RB3 == 0);
-        _delay((unsigned long)((5)*(4000000/4000.0)));
-        return '7';
-    }
-    if(PORTBbits.RB2 == 0){
-        _delay((unsigned long)((2)*(4000000/4000.0)));
-        while(PORTBbits.RB2 == 0);
-        _delay((unsigned long)((5)*(4000000/4000.0)));
-        return '8';
-    }
-    if(PORTBbits.RB1 == 0){
-        _delay((unsigned long)((2)*(4000000/4000.0)));
-        while(PORTBbits.RB1 == 0);
-        _delay((unsigned long)((5)*(4000000/4000.0)));
-        return '9';
-    }
-    if(PORTBbits.RB0 == 0){
-        _delay((unsigned long)((2)*(4000000/4000.0)));
-        while(PORTBbits.RB0 == 0);
-        _delay((unsigned long)((5)*(4000000/4000.0)));
-        return 'C';
-    }
 
-    PORTBbits.RB4 = 1;
-    PORTBbits.RB5 = 1;
-    PORTBbits.RB6 = 1;
-    PORTBbits.RB7 = 0;
-    if(PORTBbits.RB3 == 0){
-        _delay((unsigned long)((2)*(4000000/4000.0)));
-        while(PORTBbits.RB3 == 0);
-        _delay((unsigned long)((5)*(4000000/4000.0)));
-        return '*';
-    }
-    if(PORTBbits.RB2 == 0){
-        _delay((unsigned long)((2)*(4000000/4000.0)));
-        while(PORTBbits.RB2 == 0);
-        _delay((unsigned long)((5)*(4000000/4000.0)));
-        return '0';
-    }
-    if(PORTBbits.RB1 == 0){
-        _delay((unsigned long)((2)*(4000000/4000.0)));
-        while(PORTBbits.RB1 == 0);
-        _delay((unsigned long)((5)*(4000000/4000.0)));
-        return '#';
-    }
-    if(PORTBbits.RB0 == 0){
-        _delay((unsigned long)((2)*(4000000/4000.0)));
-        while(PORTBbits.RB0 == 0);
-        _delay((unsigned long)((5)*(4000000/4000.0)));
-        return 'D';
-    }
-    return 0;
+
+
+void enviarInformacion(int renglon,int columna,char caracter){
+    USART_Write((char)renglon);
+    USART_Write((char)columna);
+    USART_Write(caracter);
 }

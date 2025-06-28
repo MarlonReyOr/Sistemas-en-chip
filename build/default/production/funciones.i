@@ -1748,14 +1748,14 @@ void Lcd_Set_Cursor(char a, char b);
 void Lcd_Init(void);
 void Lcd_Write_Char(char a);
 void Lcd_Write_String(const char *a);
-void Lcd_Shift_Right(void);
-void Lcd_Shift_Left(void);
+
+
 void Lcd_Blink(void);
 void Lcd_NoBlink(void);
 void Lcd_Delete_Char(int renglon, int columna);
 # 3 "funciones.c" 2
 # 1 "./funciones.h" 1
-# 14 "./funciones.h"
+# 31 "./funciones.h"
 extern int renglon;
 extern int columna;
 
@@ -1769,54 +1769,12 @@ void __attribute__((picinterrupt(("")))) ISR();
 
 void Buzzer_On(unsigned int duration_ms)
 {
-    PORTAbits.RA4 = 0;
+    PORTCbits.RC4 = 0;
     while(duration_ms--)
     {
         _delay((unsigned long)((1)*(4000000/4000.0)));
     }
-    PORTAbits.RA4 = 1;
-}
-
-void USART_Init(long baud) {
-    TRISC6 = 0;
-    TRISC7 = 1;
-    SPBRG = (4000000 / (64 * baud)) - 1;
-    TXEN = 1;
-    SYNC = 0;
-    SPEN = 1;
-    CREN = 1;
-}
-
-void USART_Write(char data) {
-    while(!TXIF);
-    TXREG = data;
-}
-
-void __attribute__((picinterrupt(("")))) ISR() {
-    static char renglon_recibido = 0, columna_recibida = 0, caracter_recibido = 0;
-    static char estado = 0;
-
-    if (RCIF) {
-        char dato = RCREG;
-
-        if (estado == 0) {
-            renglon_recibido = dato;
-            estado = 1;
-        }
-        else if (estado == 1) {
-            columna_recibida = dato;
-            estado = 2;
-        }
-        else if (estado == 2) {
-            caracter_recibido = dato;
-            estado = 0;
-
-
-            Lcd_Set_Cursor(renglon_recibido, columna_recibida);
-            Lcd_Write_Char(caracter_recibido);
-            Lcd_Set_Cursor(renglon, columna);
-        }
-    }
+    PORTCbits.RC4 = 1;
 }
 
 void enviarInformacion(int renglon,int columna,char caracter){

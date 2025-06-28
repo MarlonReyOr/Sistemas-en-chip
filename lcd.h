@@ -1,7 +1,10 @@
 /* 
  * File:   lcd.h
- * Author: Marlon
- *
+ * Authors: 
+ * -Cisneros Araujo Karen
+ * -Diaz Ortiz Brandon
+ * -Escarcega Hernandez Steven Araujo
+ * -Reyes Ortiz Marlon
  * Created on 5 de junio de 2025, 01:57 AM
  */
 
@@ -10,15 +13,15 @@
 
 //#define USE_CGRAM_LCD
 
-#define RS PORTCbits.RC0
-#define EN PORTCbits.RC2
+#define RS PORTCbits.RC3
+#define EN PORTCbits.RC5
 #define D4 PORTBbits.RB4
 #define D5 PORTBbits.RB5
 #define D6 PORTBbits.RB6
 #define D7 PORTBbits.RB7
 
-#define RS_DIR TRISCbits.TRISC0
-#define EN_DIR TRISCbits.TRISC2
+#define RS_DIR TRISCbits.TRISC3
+#define EN_DIR TRISCbits.TRISC5
 #define D4_DIR TRISBbits.TRISB4
 #define D5_DIR TRISBbits.TRISB5
 #define D6_DIR TRISBbits.TRISB6
@@ -31,15 +34,15 @@ void Lcd_Set_Cursor(char a, char b);
 void Lcd_Init(void);
 void Lcd_Write_Char(char a);
 void Lcd_Write_String(const char *a);
-void Lcd_Shift_Right(void);
-void Lcd_Shift_Left(void);
+//void Lcd_Shift_Right(void);
+//void Lcd_Shift_Left(void);
 void Lcd_Blink(void);
 void Lcd_NoBlink(void);
 void Lcd_Delete_Char(int renglon, int columna);
 
 
-#ifdef USE_CGRAM_LCD
-//void Lcd_CGRAM_CreateChar(char add, const char* chardata);
-void Lcd_CGRAM_Init(void);
-void Lcd_CGRAM_Close(void);
-#endif
+//#ifdef USE_CGRAM_LCD
+////void Lcd_CGRAM_CreateChar(char add, const char* chardata);
+//void Lcd_CGRAM_Init(void);
+//void Lcd_CGRAM_Close(void);
+//#endif

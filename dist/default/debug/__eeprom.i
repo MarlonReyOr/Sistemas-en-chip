@@ -1,4 +1,4 @@
-# 1 "kbd4x4.c"
+# 1 "C:\\Program Files\\Microchip\\xc8\\v3.00\\pic\\sources\\c99\\pic\\__eeprom.c"
 # 1 "<built-in>" 1
 # 1 "<built-in>" 3
 # 285 "<built-in>" 3
@@ -6,14 +6,7 @@
 # 1 "<built-in>" 2
 # 1 "C:\\Program Files\\Microchip\\xc8\\v3.00\\pic\\include/language_support.h" 1 3
 # 2 "<built-in>" 2
-# 1 "kbd4x4.c" 2
-# 1 "./kbd4x4.h" 1
-
-
-
-
-
-
+# 1 "C:\\Program Files\\Microchip\\xc8\\v3.00\\pic\\sources\\c99\\pic\\__eeprom.c" 2
 # 1 "C:\\Program Files\\Microchip\\xc8\\v3.00\\pic\\include/xc.h" 1 3
 # 18 "C:\\Program Files\\Microchip\\xc8\\v3.00\\pic\\include/xc.h" 3
 extern const char __xc8_OPTIM_SPEED;
@@ -1745,140 +1738,175 @@ extern __bank0 unsigned char __resetbits;
 extern __bank0 __bit __powerdown;
 extern __bank0 __bit __timeout;
 # 29 "C:\\Program Files\\Microchip\\xc8\\v3.00\\pic\\include/xc.h" 2 3
-# 8 "./kbd4x4.h" 2
-# 28 "./kbd4x4.h"
-void Keypad_Init(void);
-char Keypad_Get_Char(void);
-# 2 "kbd4x4.c" 2
+# 2 "C:\\Program Files\\Microchip\\xc8\\v3.00\\pic\\sources\\c99\\pic\\__eeprom.c" 2
 
-void Keypad_Init(void)
+
+
+void
+__eecpymem(volatile unsigned char *to, __eeprom unsigned char * from, unsigned char size)
 {
+ volatile unsigned char *cp = to;
 
+ while (EECON1bits.WR) continue;
+ EEADR = (unsigned char)from;
+ while(size--) {
+  while (EECON1bits.WR) continue;
 
+  EECON1 &= 0x7F;
 
-
-    TRISBbits.TRISB3 = 1;
-    TRISBbits.TRISB2 = 1;
-    TRISBbits.TRISB1 = 1;
-    TRISBbits.TRISB0 = 1;
+  EECON1bits.RD = 1;
+  *cp++ = EEDATA;
+  ++EEADR;
+ }
+# 36 "C:\\Program Files\\Microchip\\xc8\\v3.00\\pic\\sources\\c99\\pic\\__eeprom.c"
 }
 
-char Keypad_Get_Char(void)
+void
+__memcpyee(__eeprom unsigned char * to, const unsigned char *from, unsigned char size)
 {
-    PORTBbits.RB4 = 0;
-    PORTBbits.RB5 = 1;
-    PORTBbits.RB6 = 1;
-    PORTBbits.RB7 = 1;
-    if(PORTBbits.RB3 == 0){
-        _delay((unsigned long)((2)*(4000000/4000.0)));
-        while(PORTBbits.RB3 == 0);
-        _delay((unsigned long)((5)*(4000000/4000.0)));
-        return '1';
-    }
-    if(PORTBbits.RB2 == 0){
-        _delay((unsigned long)((2)*(4000000/4000.0)));
-        while(PORTBbits.RB2 == 0);
-        _delay((unsigned long)((5)*(4000000/4000.0)));
-        return '2';
-    }
-    if(PORTBbits.RB1 == 0){
-        _delay((unsigned long)((2)*(4000000/4000.0)));
-        while(PORTBbits.RB1 == 0);
-        _delay((unsigned long)((5)*(4000000/4000.0)));
-        return '3';
-    }
-    if(PORTBbits.RB0 == 0){
-        _delay((unsigned long)((2)*(4000000/4000.0)));
-        while(PORTBbits.RB0 == 0);
-        _delay((unsigned long)((5)*(4000000/4000.0)));
-        return 'A';
-    }
+ const unsigned char *ptr =from;
 
-    PORTBbits.RB4 = 1;
-    PORTBbits.RB5 = 0;
-    PORTBbits.RB6 = 1;
-    PORTBbits.RB7 = 1;
-    if(PORTBbits.RB3 == 0){
-        _delay((unsigned long)((2)*(4000000/4000.0)));
-        while(PORTBbits.RB3 == 0);
-        _delay((unsigned long)((5)*(4000000/4000.0)));
-        return '4';
-    }
-    if(PORTBbits.RB2 == 0){
-        _delay((unsigned long)((2)*(4000000/4000.0)));
-        while(PORTBbits.RB2 == 0);
-        _delay((unsigned long)((5)*(4000000/4000.0)));
-        return '5';
-    }
-    if(PORTBbits.RB1 == 0){
-        _delay((unsigned long)((2)*(4000000/4000.0)));
-        while(PORTBbits.RB1 == 0);
-        _delay((unsigned long)((5)*(4000000/4000.0)));
-        return '6';
-    }
-    if(PORTBbits.RB0 == 0){
-        _delay((unsigned long)((2)*(4000000/4000.0)));
-        while(PORTBbits.RB0 == 0);
-        _delay((unsigned long)((5)*(4000000/4000.0)));
-        return 'B';
-    }
+ while (EECON1bits.WR) continue;
+ EEADR = (unsigned char)to - 1U;
 
-    PORTBbits.RB4 = 1;
-    PORTBbits.RB5 = 1;
-    PORTBbits.RB6 = 0;
-    PORTBbits.RB7 = 1;
-    if(PORTBbits.RB3 == 0){
-        _delay((unsigned long)((2)*(4000000/4000.0)));
-        while(PORTBbits.RB3 == 0);
-        _delay((unsigned long)((5)*(4000000/4000.0)));
-        return '7';
-    }
-    if(PORTBbits.RB2 == 0){
-        _delay((unsigned long)((2)*(4000000/4000.0)));
-        while(PORTBbits.RB2 == 0);
-        _delay((unsigned long)((5)*(4000000/4000.0)));
-        return '8';
-    }
-    if(PORTBbits.RB1 == 0){
-        _delay((unsigned long)((2)*(4000000/4000.0)));
-        while(PORTBbits.RB1 == 0);
-        _delay((unsigned long)((5)*(4000000/4000.0)));
-        return '9';
-    }
-    if(PORTBbits.RB0 == 0){
-        _delay((unsigned long)((2)*(4000000/4000.0)));
-        while(PORTBbits.RB0 == 0);
-        _delay((unsigned long)((5)*(4000000/4000.0)));
-        return 'C';
-    }
+ EECON1 &= 0x7F;
 
-    PORTBbits.RB4 = 1;
-    PORTBbits.RB5 = 1;
-    PORTBbits.RB6 = 1;
-    PORTBbits.RB7 = 0;
-    if(PORTBbits.RB3 == 0){
-        _delay((unsigned long)((2)*(4000000/4000.0)));
-        while(PORTBbits.RB3 == 0);
-        _delay((unsigned long)((5)*(4000000/4000.0)));
-        return '*';
-    }
-    if(PORTBbits.RB2 == 0){
-        _delay((unsigned long)((2)*(4000000/4000.0)));
-        while(PORTBbits.RB2 == 0);
-        _delay((unsigned long)((5)*(4000000/4000.0)));
-        return '0';
-    }
-    if(PORTBbits.RB1 == 0){
-        _delay((unsigned long)((2)*(4000000/4000.0)));
-        while(PORTBbits.RB1 == 0);
-        _delay((unsigned long)((5)*(4000000/4000.0)));
-        return '#';
-    }
-    if(PORTBbits.RB0 == 0){
-        _delay((unsigned long)((2)*(4000000/4000.0)));
-        while(PORTBbits.RB0 == 0);
-        _delay((unsigned long)((5)*(4000000/4000.0)));
-        return 'D';
-    }
-    return 0;
+ while(size--) {
+  while (EECON1bits.WR) {
+   continue;
+  }
+  EEDATA = *ptr++;
+  ++EEADR;
+  STATUSbits.CARRY = 0;
+  if (INTCONbits.GIE) {
+   STATUSbits.CARRY = 1;
+  }
+  INTCONbits.GIE = 0;
+  EECON1bits.WREN = 1;
+  EECON2 = 0x55;
+  EECON2 = 0xAA;
+  EECON1bits.WR = 1;
+  EECON1bits.WREN = 0;
+  if (STATUSbits.CARRY) {
+   INTCONbits.GIE = 1;
+  }
+ }
+# 101 "C:\\Program Files\\Microchip\\xc8\\v3.00\\pic\\sources\\c99\\pic\\__eeprom.c"
+}
+
+unsigned char
+__eetoc(__eeprom void *addr)
+{
+ unsigned char data;
+ __eecpymem((unsigned char *) &data,addr,1);
+ return data;
+}
+
+unsigned int
+__eetoi(__eeprom void *addr)
+{
+ unsigned int data;
+ __eecpymem((unsigned char *) &data,addr,2);
+ return data;
+}
+
+#pragma warning push
+#pragma warning disable 2040
+__uint24
+__eetom(__eeprom void *addr)
+{
+ __uint24 data;
+ __eecpymem((unsigned char *) &data,addr,3);
+ return data;
+}
+#pragma warning pop
+
+unsigned long
+__eetol(__eeprom void *addr)
+{
+ unsigned long data;
+ __eecpymem((unsigned char *) &data,addr,4);
+ return data;
+}
+
+#pragma warning push
+#pragma warning disable 1516
+unsigned long long
+__eetoo(__eeprom void *addr)
+{
+ unsigned long long data;
+ __eecpymem((unsigned char *) &data,addr,8);
+ return data;
+}
+#pragma warning pop
+
+unsigned char
+__ctoee(__eeprom void *addr, unsigned char data)
+{
+ __memcpyee(addr,(unsigned char *) &data,1);
+ return data;
+}
+
+unsigned int
+__itoee(__eeprom void *addr, unsigned int data)
+{
+ __memcpyee(addr,(unsigned char *) &data,2);
+ return data;
+}
+
+#pragma warning push
+#pragma warning disable 2040
+__uint24
+__mtoee(__eeprom void *addr, __uint24 data)
+{
+ __memcpyee(addr,(unsigned char *) &data,3);
+ return data;
+}
+#pragma warning pop
+
+unsigned long
+__ltoee(__eeprom void *addr, unsigned long data)
+{
+ __memcpyee(addr,(unsigned char *) &data,4);
+ return data;
+}
+
+#pragma warning push
+#pragma warning disable 1516
+unsigned long long
+__otoee(__eeprom void *addr, unsigned long long data)
+{
+ __memcpyee(addr,(unsigned char *) &data,8);
+ return data;
+}
+#pragma warning pop
+
+float
+__eetoft(__eeprom void *addr)
+{
+ float data;
+ __eecpymem((unsigned char *) &data,addr,3);
+ return data;
+}
+
+double
+__eetofl(__eeprom void *addr)
+{
+ double data;
+ __eecpymem((unsigned char *) &data,addr,4);
+ return data;
+}
+
+float
+__fttoee(__eeprom void *addr, float data)
+{
+ __memcpyee(addr,(unsigned char *) &data,3);
+ return data;
+}
+
+double
+__fltoee(__eeprom void *addr, double data)
+{
+ __memcpyee(addr,(unsigned char *) &data,4);
+ return data;
 }

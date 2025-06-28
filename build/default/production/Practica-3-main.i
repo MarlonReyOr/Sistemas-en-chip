@@ -8,21 +8,8 @@
 # 2 "<built-in>" 2
 # 1 "Practica-3-main.c" 2
 
-
-
-
-
-
-
-#pragma config FOSC = HS
-#pragma config WDTE = OFF
-#pragma config PWRTE = ON
-#pragma config BOREN = ON
-#pragma config LVP = OFF
-#pragma config CPD = OFF
-#pragma config WRT = OFF
-#pragma config CP = OFF
-
+#pragma config FOSC = HS, WDTE = OFF, PWRTE = ON, BOREN = ON
+#pragma config LVP = OFF, CPD = OFF, WRT = OFF, CP = OFF
 
 # 1 "C:\\Program Files\\Microchip\\xc8\\v3.00\\pic\\include/xc.h" 1 3
 # 18 "C:\\Program Files\\Microchip\\xc8\\v3.00\\pic\\include/xc.h" 3
@@ -1755,65 +1742,7 @@ extern __bank0 unsigned char __resetbits;
 extern __bank0 __bit __powerdown;
 extern __bank0 __bit __timeout;
 # 29 "C:\\Program Files\\Microchip\\xc8\\v3.00\\pic\\include/xc.h" 2 3
-# 19 "Practica-3-main.c" 2
-# 1 "C:\\Program Files\\Microchip\\xc8\\v3.00\\pic\\include\\c99/string.h" 1 3
-# 25 "C:\\Program Files\\Microchip\\xc8\\v3.00\\pic\\include\\c99/string.h" 3
-# 1 "C:\\Program Files\\Microchip\\xc8\\v3.00\\pic\\include\\c99/bits/alltypes.h" 1 3
-# 421 "C:\\Program Files\\Microchip\\xc8\\v3.00\\pic\\include\\c99/bits/alltypes.h" 3
-typedef struct __locale_struct * locale_t;
-# 26 "C:\\Program Files\\Microchip\\xc8\\v3.00\\pic\\include\\c99/string.h" 2 3
-
-void *memcpy (void *restrict, const void *restrict, size_t);
-void *memmove (void *, const void *, size_t);
-void *memset (void *, int, size_t);
-int memcmp (const void *, const void *, size_t);
-void *memchr (const void *, int, size_t);
-
-char *strcpy (char *restrict, const char *restrict);
-char *strncpy (char *restrict, const char *restrict, size_t);
-
-char *strcat (char *restrict, const char *restrict);
-char *strncat (char *restrict, const char *restrict, size_t);
-
-int strcmp (const char *, const char *);
-int strncmp (const char *, const char *, size_t);
-
-int strcoll (const char *, const char *);
-size_t strxfrm (char *restrict, const char *restrict, size_t);
-
-char *strchr (const char *, int);
-char *strrchr (const char *, int);
-
-size_t strcspn (const char *, const char *);
-size_t strspn (const char *, const char *);
-char *strpbrk (const char *, const char *);
-char *strstr (const char *, const char *);
-char *strtok (char *restrict, const char *restrict);
-
-size_t strlen (const char *);
-
-char *strerror (int);
-
-
-
-
-char *strtok_r (char *restrict, const char *restrict, char **restrict);
-int strerror_r (int, char *, size_t);
-char *stpcpy(char *restrict, const char *restrict);
-char *stpncpy(char *restrict, const char *restrict, size_t);
-size_t strnlen (const char *, size_t);
-char *strdup (const char *);
-char *strndup (const char *, size_t);
-char *strsignal(int);
-char *strerror_l (int, locale_t);
-int strcoll_l (const char *, const char *, locale_t);
-size_t strxfrm_l (char *restrict, const char *restrict, size_t, locale_t);
-
-
-
-
-void *memccpy (void *restrict, const void *restrict, int, size_t);
-# 20 "Practica-3-main.c" 2
+# 6 "Practica-3-main.c" 2
 
 # 1 "./lcd.h" 1
 # 27 "./lcd.h"
@@ -1824,32 +1753,19 @@ void Lcd_Set_Cursor(char a, char b);
 void Lcd_Init(void);
 void Lcd_Write_Char(char a);
 void Lcd_Write_String(const char *a);
-void Lcd_Shift_Right(void);
-void Lcd_Shift_Left(void);
+
+
 void Lcd_Blink(void);
 void Lcd_NoBlink(void);
 void Lcd_Delete_Char(int renglon, int columna);
-# 22 "Practica-3-main.c" 2
+# 8 "Practica-3-main.c" 2
 # 1 "./kbd4x4.h" 1
 # 28 "./kbd4x4.h"
 void Keypad_Init(void);
 char Keypad_Get_Char(void);
-# 23 "Practica-3-main.c" 2
-# 1 "./ascii_chars.h" 1
-# 10 "./ascii_chars.h"
-const char ASCII_CHARS[128] = {
-    0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15,
-    16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31,
-    ' ', '!', '"', '#', '$', '%', '&', '\'', '(', ')', '*', '+', ',', '-', '.', '/',
-    '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', ':', ';', '<', '=', '>', '?',
-    '@', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O',
-    'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', '[', '\\', ']', '^', '_',
-    '`', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o',
-    'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', '{', '|', '}', '~', 127
-};
-# 24 "Practica-3-main.c" 2
+# 9 "Practica-3-main.c" 2
 # 1 "./funciones.h" 1
-# 14 "./funciones.h"
+# 31 "./funciones.h"
 extern int renglon;
 extern int columna;
 
@@ -1858,194 +1774,149 @@ void USART_Init(long baud);
 void USART_Write(char data);
 void enviarInformacion(int renglon, int columna, char caracter);
 void __attribute__((picinterrupt(("")))) ISR();
-# 25 "Practica-3-main.c" 2
-int renglon=1;
-int columna=1;
+# 10 "Practica-3-main.c" 2
 
-void main()
+
+
+
+
+
+
+
+const uint8_t idxRef[4] = {3,5, 13,15};
+const uint8_t idxPWM[4] = {2,3, 7,8};
+
+char line0[17] = "A1:0.02:0.03:0.0";
+char ref0[17] = "R1:-.-****R3:-.-";
+char ref1[17] = "Voltajes No.2   ";
+char cntStr[17]= "CNT:00000       ";
+char pwmStr[17]= "F:01kD:00       ";
+
+volatile uint16_t pulseCnt = 0;
+
+char *activeBuf = ref0;
+const uint8_t *map = idxRef;
+uint8_t lenMap = 4;
+uint8_t page = 0, pos = 0;
+char key;
+
+int renglon = 1;
+int columna = 1;
+
+void __attribute__((picinterrupt(("")))) ISR(void)
 {
- ADCON1bits.PCFG = 0x0F;
-    Keypad_Init();
-    Lcd_Init();
-    Lcd_Blink();
-    TRISAbits.TRISA4=0;
-    PORTAbits.RA4=1;
+    static char rRow=0, rCol=0, rChr=0, st=0;
+    if (RCIF) {
+        char d = RCREG;
+        if (st==0){ rRow=d; st=1; }
+        else if (st==1){ rCol=d; st=2; }
+        else { rChr=d; st=0; Lcd_Set_Cursor(rRow, rCol); Lcd_Write_Char(rChr); Lcd_Set_Cursor(renglon, columna); }
+    }
+    if (T0IF) { pulseCnt += 256; T0IF = 0; }
+}
 
- int CaracteresEscritos=0;
- int CaracterEnAsc=0;
+static __attribute__((inline)) uint8_t toDeciv(uint16_t v){ return (uint8_t)((v*50U+511U)/1023U); }
 
- char caracter_asc[4];
- char caracter;
+static void ADC_Init(void){ TRISAbits.TRISA0=TRISAbits.TRISA1=TRISAbits.TRISA2=1; ADCON1=0b10001110; (ADCON0 = (ADCON0 & 0b11000101) | (0 << 3)); ADCON0bits.ADON=1; _delay((unsigned long)((2)*(4000000/4000.0))); }
 
- char tecla;
- Lcd_Set_Cursor(renglon,columna);
+static __attribute__((inline)) uint16_t adcRead(uint8_t ch){ if(ch==1)(ADCON0 = (ADCON0 & 0b11000101) | (1 << 3)); else if(ch==2)(ADCON0 = (ADCON0 & 0b11000101) | (2 << 3)); else (ADCON0 = (ADCON0 & 0b11000101) | (0 << 3)); _delay((unsigned long)((15)*(4000000/4000000.0))); GO_nDONE=1; while(GO_nDONE) ; return ((uint16_t)ADRESH<<8)|ADRESL; }
 
-    USART_Init(9600);
-    RCIE = 1;
-    PEIE = 1;
-    GIE = 1;
+static void PWM_LED_Init(void){ TRISCbits.TRISC2=0; CCP1CON=0b00001100; T2CON=0b00000111; PR2=124; }
 
- while(1)
-    {
-  tecla = Keypad_Get_Char();
-  if(tecla != 0)
-        {
-   switch(tecla)
-   {
-    case 'A':
-                    Buzzer_On(50);
-     if(renglon==1){
-                        Buzzer_On(50);
-      renglon=2;
-      Lcd_Set_Cursor(renglon,columna);
-     }
-     else
-     {
-      renglon=1;
-      Lcd_Set_Cursor(renglon,columna);
-     }
-     break;
-    case 'B':
-                    if(renglon==2){
-                        if(columna > 1)
-                        {
-                            Lcd_Delete_Char(renglon, columna-1);
-                            columna--;
-                            enviarInformacion(renglon,columna,' ');
-                            Buzzer_On(50);
-                        }else{
-                            renglon=1;
-                            columna=16;
-                            Lcd_Delete_Char(renglon, columna);
-                            enviarInformacion(renglon,columna,' ');
-                            Buzzer_On(50);
-                        }
-                    }else{
-                        if(columna > 1)
-                        {
-                            Lcd_Delete_Char(renglon, columna-1);
-                            columna--;
-                            enviarInformacion(renglon,columna,' ');
-                            Buzzer_On(50);
-                        }else{
-                            renglon=2;
-                            columna=16;
-                            Lcd_Delete_Char(renglon, columna);
-                            enviarInformacion(renglon,columna,' ');
-                            Buzzer_On(50);
-                        }
+static void PWM_LED_Set(uint8_t pct){ uint16_t r=pct*5; if(r>500) r=500; CCPR1L=(uint8_t)(r>>2); CCP1CONbits.CCP1Y=(r>>1)&1; CCP1CONbits.CCP1X=r&1; }
+
+static void PWM1_Init(void){ TRISCbits.TRISC1=0; CCP2CON=0b00001100; }
+
+static void PWM1_Set(uint8_t kHz,uint8_t duty){ if(kHz<1)kHz=1; if(kHz>62)kHz=62; PR2=62-kHz; uint16_t r=duty*5; if(r>500) r=500; CCPR2L=(uint8_t)(r>>2); CCP2CONbits.CCP2Y=(r>>1)&1; CCP2CONbits.CCP2X=r&1; }
+
+static __attribute__((inline)) uint8_t refToDeciv(const char *p){ return (p[0]=='-'||p[2]=='-')?255:(uint8_t)((p[0]-'0')*10 + p[2]-'0'); }
+
+static __attribute__((inline)) void buildLine0(uint8_t d0,uint8_t d1,uint8_t d2){ line0[3]=d0/10+'0'; line0[4]='.'; line0[5]=d0%10+'0'; line0[8]=d1/10+'0'; line0[9]='.'; line0[10]=d1%10+'0'; line0[13]=d2/10+'0'; line0[14]='.'; line0[15]=d2%10+'0'; }
+
+static __attribute__((inline)) void cursorLCD(void){ Lcd_Set_Cursor(2, map[pos]+1); }
+
+static void showPage(uint8_t pg){
+    Lcd_Clear();
+    switch(pg){
+        case 0:
+            Lcd_Set_Cursor(1,1); Lcd_Write_String(line0);
+            Lcd_Set_Cursor(2,1); Lcd_Write_String(ref0);
+            activeBuf=ref0; map=idxRef; lenMap=4; pos=0;
+            Lcd_Blink(); cursorLCD(); break;
+        case 1:
+            Lcd_Set_Cursor(1,1); Lcd_Write_String("SEGUNDA PANTALLA");
+            Lcd_Set_Cursor(2,1); Lcd_Write_String(ref1);
+            activeBuf=ref1; map=idxRef; lenMap=4; pos=0;
+            Lcd_Blink(); cursorLCD(); break;
+        case 2:
+            Lcd_Set_Cursor(1,1); Lcd_Write_String(cntStr);
+            Lcd_Set_Cursor(2,1); Lcd_Write_String(pwmStr);
+            activeBuf=pwmStr; map=idxPWM; lenMap=4; pos=0;
+            Lcd_Blink(); cursorLCD(); break;
+        case 3:
+            Lcd_Set_Cursor(1,1); Lcd_Write_String("SEGUNDA PANTALLA");
+            Lcd_Set_Cursor(2,1); Lcd_Write_String("Segundo PWM");
+            Lcd_NoBlink(); break;
+    }
+}
+
+void main(void)
+{
+    TRISCbits.TRISC0=0; PORTCbits.RC0=0; TRISCbits.TRISC4=0; PORTCbits.RC4=1;
+
+    PWM_LED_Init(); PWM1_Init(); ADC_Init();
+
+    TMR0=0; OPTION_REG=0b00000001; T0IE=1; GIE=1;
+
+    Keypad_Init(); Lcd_Init(); showPage(page);
+
+    while(1){
+        if(page==0){
+            uint8_t d0=toDeciv(adcRead(0));
+            uint8_t d1=toDeciv(adcRead(1));
+            uint8_t d2=toDeciv(adcRead(2));
+            buildLine0(d0,d1,d2);
+            Lcd_Set_Cursor(1,1); Lcd_Write_String(line0);
+
+            uint8_t r1=refToDeciv(&ref0[3]);
+            PORTCbits.RC0 = (r1!=255 && d0>r1);
+
+            PWM_LED_Set(d1*2);
+
+            uint8_t r3=refToDeciv(&ref0[13]);
+            PORTCbits.RC4 = (r3!=255 && d2>r3) ? 0 : 1;
+        }
+
+        if(page==2){
+            uint16_t total=pulseCnt+TMR0;
+            cntStr[4]=(total/10000)%10+'0';
+            cntStr[5]=(total/1000)%10+'0';
+            cntStr[6]=(total/100)%10+'0';
+            cntStr[7]=(total/10)%10+'0';
+            cntStr[8]= total%10+'0';
+            Lcd_Set_Cursor(1,1); Lcd_Write_String(cntStr);
+        }
+
+        key=Keypad_Get_Char(); if(!key) continue;
+
+        if(key=='D'){ page=(page+1)%4; showPage(page); _delay((unsigned long)((120)*(4000000/4000.0))); continue; }
+        if(page==3) continue;
+
+        switch(key){
+            case '*': pos=(pos==0)?lenMap-1:pos-1; cursorLCD(); break;
+            case '#': pos=(pos==lenMap-1)?0:pos+1; cursorLCD(); break;
+            case 'B': activeBuf[map[pos]]='-'; Lcd_Set_Cursor(2,1); Lcd_Write_String(activeBuf); cursorLCD(); break;
+            default:
+                if(key>='0'&&key<='9'){
+                    activeBuf[map[pos]]=key;
+                    Lcd_Set_Cursor(2,1); Lcd_Write_String(activeBuf);
+                    pos=(pos==lenMap-1)?0:pos+1; cursorLCD();
+                    if(page==2){
+                        uint8_t k=(pwmStr[2]-'0')*10+(pwmStr[3]-'0');
+                        uint8_t d=(pwmStr[7]-'0')*10+(pwmStr[8]-'0');
+                        PWM1_Set(k,d);
                     }
-     break;
-    case 'C':
-     CaracteresEscritos=0;
-                    memset(caracter_asc, 0, sizeof(caracter_asc));
-                    Buzzer_On(250);
-     break;
-    case 'D':
-      caracter_asc[3] = '\0';
-
-                    CaracterEnAsc = atoi(caracter_asc);
-
-
-                    if(CaracterEnAsc >= 32 && CaracterEnAsc < 127)
-                    {
-                        Buzzer_On(200);
-                        caracter = ASCII_CHARS[CaracterEnAsc];
-                        if(renglon==2){
-                            if(columna==16){
-                                Lcd_Write_Char(caracter);
-                                enviarInformacion(renglon,columna,caracter);
-                                renglon=1;
-                                columna=1;
-                                Lcd_Set_Cursor(renglon,columna);
-                                CaracteresEscritos=0;
-                                memset(caracter_asc, 0, sizeof(caracter_asc));
-                            }else{
-                                Lcd_Write_Char(caracter);
-                                enviarInformacion(renglon,columna,caracter);
-                                columna++;
-                                Lcd_Set_Cursor(renglon,columna);
-                                CaracteresEscritos=0;
-                                memset(caracter_asc, 0, sizeof(caracter_asc));
-                            }
-                        }else{
-                            if(columna==16)
-                            {
-                                Lcd_Write_Char(caracter);
-                                enviarInformacion(renglon,columna,caracter);
-                                renglon=2;
-                                columna=1;
-                                Lcd_Set_Cursor(renglon,columna);
-                                CaracteresEscritos=0;
-                                memset(caracter_asc, 0, sizeof(caracter_asc));
-                            }else{
-                                Lcd_Write_Char(caracter);
-                                enviarInformacion(renglon,columna,caracter);
-                                columna++;
-                                Lcd_Set_Cursor(renglon,columna);
-                                CaracteresEscritos=0;
-                                memset(caracter_asc, 0, sizeof(caracter_asc));
-                            }
-                        }
-                    }
-                    else
-                    {
-                        Buzzer_On(700);
-                        CaracteresEscritos=0;
-                        memset(caracter_asc, 0, sizeof(caracter_asc));
-                    }
-     break;
-    case '*':
-                    Buzzer_On(50);
-     if(renglon==2){
-                        if(columna > 1)
-                        {
-                            columna--;
-                            Lcd_Set_Cursor(renglon,columna);
-                        }else{
-                            renglon--;
-                            columna=16;
-                            Lcd_Set_Cursor(renglon,columna);
-                        }
-                    }else{
-                        if(columna > 1)
-                        {
-                            columna--;
-                            Lcd_Set_Cursor(renglon,columna);
-                        }
-                    }
-     break;
-    case '#':
-                    Buzzer_On(50);
-     if(renglon==1){
-                        if(columna == 16)
-                        {
-                            renglon++;
-                            columna=1;
-                            Lcd_Set_Cursor(renglon,columna);
-                        }else{
-                            columna++;
-                            Lcd_Set_Cursor(renglon,columna);
-                        }
-                    }else{
-                        if(columna < 16)
-                        {
-                            columna++;
-                            Lcd_Set_Cursor(renglon,columna);
-                        }
-                    }
-     break;
-    default:
-     if(CaracteresEscritos>=3){
-                        Buzzer_On(500);
-                    }
-                    else{
-                        Buzzer_On(50);
-                        caracter_asc[CaracteresEscritos]=tecla;
-                        CaracteresEscritos++;
-                    }
-     break;
-   }
-  }
+                }
+        }
     }
 }
